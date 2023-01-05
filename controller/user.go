@@ -34,10 +34,8 @@ func GetUsers(ctx *fiber.Ctx) error {
 		Size: size,
 	}
 	chain := database.DB.Scopes(model.Paginate(p)).Order("id ASC")
-	if from != "" {
-		if to != "" {
-			chain = chain.Where("created_at > ? AND created_at <=  ?", from, to)
-		}
+	if from != "" && to != "" {
+		chain = chain.Where("created_at > ? AND created_at <=  ?", from, to)
 	}
 
 	if err := chain.Find(&users).Error; err != nil {

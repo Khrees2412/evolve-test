@@ -6,6 +6,8 @@ import (
 )
 
 func Setup(app *fiber.App) {
-	app.Get("/users", controller.GetUsers)
-	app.Get("/users/:email", controller.GetUserByEmail)
+	route := app.Group("/api/v1")
+
+	route.Get("/users", controller.GetUsers)
+	route.Get("/users/:email", controller.GetUserByEmail)
 }
