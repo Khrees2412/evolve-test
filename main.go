@@ -12,7 +12,7 @@ import (
 
 func init() {
 	if err := godotenv.Load(); err != nil {
-		log.Fatalln("No .env file found")
+		log.Println("No .env file found")
 	}
 	log.Println("Environment variables successfully loaded. Starting application...")
 }
@@ -28,6 +28,13 @@ func main() {
 
 	app.Get("/", func(ctx *fiber.Ctx) error {
 		return ctx.SendString("Evolve Credit Test")
+	})
+
+	app.Get("/api/v1", func(ctx *fiber.Ctx) error {
+		return ctx.JSON(fiber.Map{
+			"success": true,
+			"message": "API Version 1",
+		})
 	})
 	//Activate CORS
 	app.Use(cors.New(cors.Config{
